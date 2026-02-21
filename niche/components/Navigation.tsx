@@ -13,7 +13,7 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          <Link href="/" className="flex items-center gap-3 group cursor-pointer">
+          <Link href="/landingpage" className="flex items-center gap-3 group cursor-pointer">
             <div className="w-9 h-9 bg-white flex items-center justify-center rounded-lg group-hover:bg-purple-500 transition-colors">
               <Music className="w-5 h-5 text-black group-hover:text-white transition-colors" />
             </div>
@@ -25,12 +25,12 @@ export function Navigation() {
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-12">
               <div className="flex items-center gap-2">
-                <Link
-                  href="/discover"
-                  className="text-[13px] font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-white transition-colors"
-                >
-                  Discover
-                </Link>
+                  <Link
+                    href="/discover"
+                    className="text-[13px] font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-white transition-colors"
+                  >
+                    Discover
+                  </Link>
                 <span className="px-1.5 py-0.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-[9px] font-bold text-purple-400">
                   V2
                 </span>

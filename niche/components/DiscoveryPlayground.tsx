@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Search, Music, Play, Heart, Share2, Sparkles, Wand2, Activity } from 'lucide-react';
@@ -64,17 +65,17 @@ export function DiscoveryPlayground() {
             NeuralSound™ Engine
           </motion.div>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
-            Discover your next <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">niche obsession</span>
+            Hello, <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">User</span>
           </h2>
           <p className="text-zinc-400 text-lg max-w-2xl mx-auto font-light leading-relaxed">
-            Provide a sample track or artist you love. Our neural engine analyzes the acoustic genome to find hidden gems that match your unique frequency.
+            Provide a sample track, genre, or artist you love. Our neural engine analyzes the acoustic genome to find hidden gems that match your unique frequency.
           </p>
         </div>
 
         <div className="max-w-3xl mx-auto mb-20">
           <form onSubmit={handleSearch} className="relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl blur-xl group-focus-within:blur-2xl transition-all duration-500 opacity-50 group-focus-within:opacity-100"></div>
-            <div className="relative flex items-center bg-zinc-900 border border-white/10 rounded-2xl p-2 focus-within:border-white/20 transition-all">
+            <div className="relative flex items-center bg-white border border-white/10 rounded-2xl p-2 focus-within:border-white/20 transition-all">
               <div className="pl-6 text-zinc-500">
                 <Search className="w-5 h-5" />
               </div>
@@ -82,8 +83,8 @@ export function DiscoveryPlayground() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Paste a Spotify link or type an artist name..."
-                className="w-full bg-transparent border-none focus:ring-0 text-white px-4 py-4 text-lg placeholder:text-zinc-600 font-light"
+                placeholder="I want to listen to..."
+                className="w-full bg-transparent border-none focus:ring-0 text-black px-4 py-4 text-lg placeholder:text-zinc-600 font-light"
               />
               <button 
                 type="submit"
@@ -93,11 +94,11 @@ export function DiscoveryPlayground() {
                 {isAnalyzing ? (
                   <>
                     <Activity className="w-4 h-4 animate-spin" />
-                    Analyzing...
+                    Discovering...
                   </>
                 ) : (
                   <>
-                    Analyze
+                    Discover
                     <Wand2 className="w-4 h-4" />
                   </>
                 )}
@@ -180,10 +181,14 @@ export function DiscoveryPlayground() {
                         <button className="text-zinc-500 hover:text-white transition-colors">
                           <Share2 className="w-4 h-4" />
                         </button>
-                      </div>
-                      <button className="text-[11px] font-bold uppercase tracking-widest text-zinc-500 hover:text-white transition-colors">
+                      <a
+                        href='songpage'
+                      >
+                        <button className="text-[11px] font-bold uppercase tracking-widest text-zinc-500 hover:text-white transition-colors">
                         View Details
                       </button>
+                      </a>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
