@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { LoginError } from '@/components/login/login_error'
 
 export default function LoginPage() {
   async function login(formData: FormData) {
@@ -28,7 +29,7 @@ export default function LoginPage() {
         className="w-full max-w-sm space-y-4 rounded border p-6 shadow"
       >
         <h1 className="text-xl font-semibold">Sign in</h1>
-
+        <LoginError />
         <input
           name="email"
           type="email"
