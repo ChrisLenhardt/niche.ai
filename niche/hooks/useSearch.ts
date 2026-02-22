@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from 'react'
 
-export function useSearch(route: string) {
+export function useSearch(params: string) {
   const [response, setResponse] = useState<unknown | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (!route) return;
+    if (!params) return;
     setLoading(true);
     console.log('loading should be true:', loading)
     setResponse(null);
@@ -17,13 +17,13 @@ export function useSearch(route: string) {
 
     async function fetchData() {
       try {
-        const res = await fetch(`${backend_adrs}/${route}`, { next: { revalidate: 3600 } });
+        const res = await fetch(`${backend_adrs}/vector/similar_albums/${params}`, { next: { revalidate: 3600 } });
         if (!res.ok) {
           throw new Error(`Request failed with status ${res.status}`);
         }
         const [data] = await Promise.all([
         res.json(),
-        new Promise(resolve => setTimeout(resolve, 1000))
+        new Promise(resolve => setTimeout(resolve, 1))
         ]);
         setResponse(data);
         setLoading(false);
@@ -36,7 +36,7 @@ export function useSearch(route: string) {
     }
 
     fetchData()
-  }, [route])
+  }, [params])
   
   return { response, loading, error }
 }

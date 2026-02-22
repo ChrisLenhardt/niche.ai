@@ -6,6 +6,9 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 import { useUserData, useUserHasSpotify } from '@/hooks/useUser'
 import Overlay from '@/components/ui/spotify-sign-in'
 import { useSearch } from '@/hooks/useSearch';
+import { track } from 'motion/react-client';
+import Link from 'next/link';
+import { useTopGenres } from '@/hooks/useTopGenres';
 
 
 
@@ -14,6 +17,7 @@ export function DiscoveryPlayground() {
   const { user, providers, metadata, loading } = useUserData()
   const [query, setQuery] = useState('');
   const [submittedQuery, setSubmittedQuery] = useState('');
+  const { genres, generating } = useTopGenres();
 
   const { response, loading: searchLoading } = useSearch(submittedQuery);
 
@@ -28,16 +32,21 @@ export function DiscoveryPlayground() {
 
   const nicheRecommendations = useMemo(() => {
   if (!response) return [];
-  
-  // adjust this based on your actual API response shape
-  return [{
-    id: 1,
-    title: "garbage",
-    artist: "garbage",
-    genre: "garbage",
-    match: '99%',
-    img: response[1] ?? ''
-  }];
+
+  const data = (response as { data: any[] })[0].data;
+  const images = JSON.parse((response as { data: any[] })[1]);
+
+  console.log(images)
+
+  return data.map((item, index) => ({
+    id: index + 1,
+    title: item.release_name,
+    artist: item.artist_name,
+    genre: item.primary_genres,
+    match: `${Math.round(item.similarity * 100)}%`,
+    img: images[item.release_name]?.img,
+    link: images[item.release_name]?.link,
+  }));
 }, [response]);
 
   const isAnalyzing = searchLoading && submittedQuery !== '' && response == null;
@@ -146,6 +155,7 @@ export function DiscoveryPlayground() {
               className="grid grid-cols-1 md:grid-cols-3 gap-8"
             >
               {nicheRecommendations.map((track, index) => (
+                <a href={track.link} target="_blank">
                 <motion.div
                   key={track.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -191,11 +201,28 @@ export function DiscoveryPlayground() {
                     </div>
                   </div>
                 </motion.div>
+                </a>
               ))}
             </motion.div>
           )}
         </div>
       </div>
+      <div className="flex items-center gap-2">
+  {loading ? (
+    <div className="h-4 w-32 bg-white/5 rounded-full animate-pulse" />
+  ) : genres.length > 0 ? (
+    genres.map((genre) => (
+      <span
+        key={genre}
+        className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-bold tracking-widest uppercase text-zinc-400"
+      >
+        {genre}
+      </span>
+    ))
+  ) : (
+    <span className="text-xs text-zinc-500">No genre data</span>
+  )}
+</div>
     </section>
   );
 }
