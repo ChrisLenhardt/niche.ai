@@ -71,7 +71,7 @@ export function Navigation() {
               {!isProfilePicShown &&(
                 <div>
                   <a
-                    href="/dashboard"
+                    href="/user_settings"
                   >
                     <button>
                       <svg className="bg-white rounded-full w-9 h-9" fill="#000000" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
