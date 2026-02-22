@@ -58,7 +58,7 @@ export function DiscoveryPlayground() {
   return (
     <section className="py-32 bg-black border-t border-white/5 relative overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-600/10 blur-[150px] rounded-full pointer-events-none"></div>
-      <Overlay show={providers.includes('spotify')} />
+      <Overlay show={!providers.includes('spotify')} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-20">
           <motion.div
