@@ -43,7 +43,7 @@ export function Hero() {
 
             <div className="flex flex-col sm:flex-row items-center gap-6">
               <Link
-                href="/discovery" 
+                href="/login" 
                 className="w-full sm:w-auto px-10 py-4 rounded-xl bg-white text-black font-bold text-base transition-all transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-white/5 flex items-center justify-center gap-2"
               >
                 Start Discovering
