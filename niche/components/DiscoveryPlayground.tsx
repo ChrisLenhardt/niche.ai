@@ -207,22 +207,6 @@ export function DiscoveryPlayground() {
           )}
         </div>
       </div>
-      <div className="flex items-center gap-2">
-  {loading ? (
-    <div className="h-4 w-32 bg-white/5 rounded-full animate-pulse" />
-  ) : genres.length > 0 ? (
-    genres.map((genre) => (
-      <span
-        key={genre}
-        className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-bold tracking-widest uppercase text-zinc-400"
-      >
-        {genre}
-      </span>
-    ))
-  ) : (
-    <span className="text-xs text-zinc-500">No genre data</span>
-  )}
-</div>
     </section>
   );
 }
