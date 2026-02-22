@@ -26,9 +26,9 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center">
       <form
         action={login}
-        className="w-full max-w-sm space-y-4 rounded border p-6 shadow"
+        className="w-full max-w-sm space-y-4 rounded-3xl border p-6 shadow"
       >
-        <h1 className="text-xl font-semibold">Sign in</h1>
+        <h1 className="text-xl font-semibold text-center">Sign in</h1>
         <LoginError />
         <input
           name="email"
@@ -48,7 +48,7 @@ export default function LoginPage() {
 
         <button
           type="submit"
-          className="w-full rounded bg-black p-2 text-white"
+          className="flex rounded bg-purple-400 p-2 text-white"
         >
           Sign in
         </button>
