@@ -1,8 +1,10 @@
 'use client';
-import React, { useState } from 'react';
+import React, {useEffect,  useState, } from 'react';
 import { motion } from 'motion/react';
 import { Search, Music, Play, Heart, Share2, Sparkles, Wand2, Activity } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { useUserData, useUserHasSpotify } from '@/hooks/useUser'
+import Overlay from '@/components/ui/spotify-sign-in'
 
 const nicheRecommendations = [
   {
@@ -32,10 +34,10 @@ const nicheRecommendations = [
 ];
 
 export function DiscoveryPlayground() {
+  const { user, providers, metadata, loading } = useUserData()
   const [query, setQuery] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showResults, setShowResults] = useState(false);
-
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (!query) return;
@@ -48,11 +50,15 @@ export function DiscoveryPlayground() {
       setShowResults(true);
     }, 2500);
   };
-
+  if (loading) {
+    return <div className="py-32 bg-black border-t border-white/5 relative overflow-hidden">
+    </div>
+  } 
+  else {
   return (
     <section className="py-32 bg-black border-t border-white/5 relative overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-600/10 blur-[150px] rounded-full pointer-events-none"></div>
-
+      <Overlay show={!providers.includes('spotify')} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-20">
           <motion.div
@@ -65,7 +71,7 @@ export function DiscoveryPlayground() {
             NeuralSound™ Engine
           </motion.div>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
-            Hello, <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">User</span>
+            Hello, <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">{user?.user_metadata?.display_name}</span>
           </h2>
           <p className="text-zinc-400 text-lg max-w-2xl mx-auto font-light leading-relaxed">
             Provide a sample track, genre, or artist you love. Our neural engine analyzes the acoustic genome to find hidden gems that match your unique frequency.
@@ -199,4 +205,5 @@ export function DiscoveryPlayground() {
       </div>
     </section>
   );
+}
 }

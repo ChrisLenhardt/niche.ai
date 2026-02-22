@@ -20,7 +20,7 @@ export default function LoginPage() {
       redirect('/login?error=invalid_credentials')
     }
 
-    redirect('/dashboard')
+    redirect('/discover')
   }
 
   return (

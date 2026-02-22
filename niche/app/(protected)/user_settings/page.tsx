@@ -1,6 +1,8 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { DashboardError } from '@/components/dashboard/dashboard_error'
+import SpotifyLinkButton from '@/components/SpotifyLinkButton';
+
 
 export default function LoginPage() {
 
@@ -47,6 +49,8 @@ export default function LoginPage() {
           Submit
         </button>
       </form>
+      <SpotifyLinkButton />
+
     </div>
   )
 }
