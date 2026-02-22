@@ -1,6 +1,8 @@
 import { ReactNode } from 'react'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { Navigation } from 'lucide-react'
+import { Footer } from '@/components/Footer'
 
 type ProtectedLayoutProps = {
   children: ReactNode
@@ -21,7 +23,7 @@ export default async function ProtectedLayout({
   // Authenticated → render protected content
   return (
     <div>
-      {children}
+        <main>{children}</main>
     </div>
   )
 }
