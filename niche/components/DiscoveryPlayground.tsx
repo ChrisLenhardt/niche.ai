@@ -1,55 +1,48 @@
 'use client';
-import React, {useEffect,  useState, } from 'react';
+import React, {useEffect,  useState, useMemo } from 'react';
 import { motion } from 'motion/react';
 import { Search, Music, Play, Heart, Share2, Sparkles, Wand2, Activity } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { useUserData, useUserHasSpotify } from '@/hooks/useUser'
 import Overlay from '@/components/ui/spotify-sign-in'
+import { useSearch } from '@/hooks/useSearch';
 
-const nicheRecommendations = [
-  {
-    id: 1,
-    title: "Celestial Drift",
-    artist: "Aether Pulse",
-    genre: "Ambient Post-Glitch",
-    match: "98%",
-    img: "https://images.unsplash.com/photo-1767915346316-fd7a44868818?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMG5ldXJhbCUyMG5ldHdvcmslMjBkYXRhJTIwdmlzdWFsaXphdGlvbiUyMGRhcmt8ZW58MXx8fHwxNzcxNjQ4MzgzfDA"
-  },
-  {
-    id: 2,
-    title: "Neon Folklore",
-    artist: "Synth Weaver",
-    genre: "Cyber-Folk",
-    match: "94%",
-    img: "https://images.unsplash.com/photo-1646206346896-14367dee001b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbmRpZSUyMG11c2ljaWFuJTIwbmVvbiUyMHN0dWRpbyUyMGFlc3RoZXRpY3xlbnwxfHx8fDE3NzE2NDg3Njh8MA"
-  },
-  {
-    id: 3,
-    title: "Kinetics",
-    artist: "Modular Ghost",
-    genre: "IDM / Braindance",
-    match: "91%",
-    img: "https://images.unsplash.com/photo-1705152258253-b76a18f38ec1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxleHBlcmltZW50YWwlMjBzeW50aCUyMHBsYXllciUyMGRhcmt8ZW58MXx8fHwxNzcxNjQ4NzY4fDA"
-  }
-];
+
 
 export function DiscoveryPlayground() {
+  
   const { user, providers, metadata, loading } = useUserData()
   const [query, setQuery] = useState('');
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [showResults, setShowResults] = useState(false);
+  const [submittedQuery, setSubmittedQuery] = useState('');
+
+  const { response, loading: searchLoading } = useSearch(submittedQuery);
+
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (!query) return;
-    
-    setIsAnalyzing(true);
-    setShowResults(false);
-    
-    setTimeout(() => {
-      setIsAnalyzing(false);
-      setShowResults(true);
-    }, 2500);
+    if (query) {
+      setSubmittedQuery(query);
+    }
   };
+
+  const nicheRecommendations = useMemo(() => {
+  if (!response) return [];
+  
+  // adjust this based on your actual API response shape
+  return [{
+    id: 1,
+    title: "garbage",
+    artist: "garbage",
+    genre: "garbage",
+    match: '99%',
+    img: response[1] ?? ''
+  }];
+}, [response]);
+
+  const isAnalyzing = searchLoading && submittedQuery !== '' && response == null;
+  const showResults = !searchLoading && submittedQuery !== '' && response !== null;
+
   if (loading) {
     return <div className="py-32 bg-black border-t border-white/5 relative overflow-hidden">
     </div>
